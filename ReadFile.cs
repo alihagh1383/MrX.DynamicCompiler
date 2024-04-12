@@ -1,6 +1,8 @@
 using System.Net;
-//Episod 1
+
+//Episod 1,2
 namespace MrX.DynamicCompiler;
+
 public class ReadFile
 {
     public ReadFile(string FileName)
@@ -9,69 +11,92 @@ public class ReadFile
             throw new("File Not Exist " + FileName);
         Stream File = System.IO.File.OpenRead(FileName);
         StreamReader ReadFile = new StreamReader(File);
-        while (!ReadFile.EndOfStream)
-        {
-            Statics.L_Tokens.AddRange(TokenList(ReadLine(ReadFile)));
-        }
+
+        Statics.L_Tokens.AddRange(TokenList((ReadFile)));
     }
-    public string ReadLine(StreamReader RF)
+
+
+    public List<string> TokenList(StreamReader RF)
     {
-        string line = string.Empty;
-        line = RF.ReadLine();
-        return line;
-    }
-    public List<string> TokenList(string Line)
-    {
+        bool Comment = false;
         List<string> LT = new();
         string bufer = string.Empty;
-        for (int i = 0; i < Line.Length; i++)
+        while (!RF.EndOfStream)
         {
-            char c = Line[i];
-            switch (c)
+            char c = (char)RF.Read();
+            if (!Comment)
             {
-                case '(':
+                switch (c)
                 {
-                    add(c);
-                    break;
-                }
-                case ')':
-                {
-                    add(c);
-                    break;
-                }
-                case ';':
-                {
-                    add(c);
-                    break;
-                }
-                case '\n':
-                {
-                    add(c);
-                    break;
-                }
-                case '.':
-                {
-                    add(c);
-                    break;
-                }
-                case ' ':
-                {
-                    add(c);
-                    break;
-                }
-                default:
-                {
-                    bufer += c;
-                    break;
+                    case '/':
+                    {
+                        if (RF.Peek() == '*')
+                        {
+                            Comment = true;
+                            bufer += c;
+                        }
+
+                        break;
+                    }
+                    case '(':
+                    {
+                        add(c);
+                        break;
+                    }
+                    case ')':
+                    {
+                        add(c);
+                        break;
+                    }
+                    case ';':
+                    {
+                        add(c);
+                        break;
+                    }
+                    case '\n':
+                    {
+                        add(c);
+                        break;
+                    }
+                    case '.':
+                    {
+                        add(c);
+                        break;
+                    }
+                    case ' ':
+                    {
+                        add(c);
+                        break;
+                    }
+                    default:
+                    {
+                        bufer += c;
+                        break;
+                    }
                 }
             }
+            else
+            {
+                bufer += c;
+                if (c == '*')
+                    if (RF.Peek() != -1 && RF.Peek() == '/')
+                    {
+                        bufer += (char)RF.Read();
+                        Comment = false;
+                        add();
+                    }
+            }
         }
-        void add(char operator_)
+
+        add('\n');
+
+        void add(char operator_ = ' ')
         {
             if (bufer != string.Empty) LT.Add(bufer);
             if (operator_ != ' ') LT.Add(operator_.ToString());
             bufer = string.Empty;
         }
+
         return LT;
     }
 }

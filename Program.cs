@@ -1,5 +1,12 @@
-﻿//Episod 1
+﻿//Episod 1,2
+
 using MrX.DynamicCompiler;
-string filepath = args[0];
-ReadFile R = new ReadFile(filepath);
+using MrX.DynamicCompiler.CompilerData;
+new Configuration(args);
+
+
+ReadFile R = new ReadFile(Statics.MainFilePath);
+
+Console.WriteLine(Statics.Grammar);
+Console.WriteLine(Statics.Labals);
 Console.WriteLine(Statics.L_Tokens);
