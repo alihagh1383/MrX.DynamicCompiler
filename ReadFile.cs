@@ -1,6 +1,6 @@
 using System.Net;
 
-//Episod 1,2
+//Episod 1,2,3
 namespace MrX.DynamicCompiler;
 
 public class ReadFile
@@ -12,7 +12,7 @@ public class ReadFile
         Stream File = System.IO.File.OpenRead(FileName);
         StreamReader ReadFile = new StreamReader(File);
 
-        Statics.L_Tokens.AddRange(TokenList((ReadFile)));
+        Statics.L_Splits.AddRange(TokenList((ReadFile)));
     }
 
 
@@ -39,6 +39,11 @@ public class ReadFile
                         break;
                     }
                     case '(':
+                    {
+                        add(c);
+                        break;
+                    }
+                    case '=':
                     {
                         add(c);
                         break;
