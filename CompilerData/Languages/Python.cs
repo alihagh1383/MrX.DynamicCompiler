@@ -1,4 +1,5 @@
 //Episod 2
+
 using MrX.DynamicCompiler.CompilerData.Types;
 using MrX.DynamicCompiler.Static;
 
@@ -45,11 +46,11 @@ public class Python
                 Statics.LabalTypes.Any, Statics.LabalTypes.EndOfCode
             }, new Gramer(new(list =>
             {
-                StaticWorker.AddLabal(list[1], new KeyValuePair<Statics.LabalTypes, object>(
+                StaticWorker.AddLabal(list[1].Key, new KeyValuePair<Statics.LabalTypes, object>(
                     Statics.LabalTypes.VariableName, new Variable()
                     {
-                        Name = list[1],
-                        Value = list[3]
+                        Name = list[1].Key,
+                        Value = list[3].Key
                     }));
                 return null;
             }))

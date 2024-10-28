@@ -1,4 +1,6 @@
-// Episod 3
+// Episod 3,4
+
+using MrX.DynamicCompiler.CompilerData.NeadClasss;
 using MrX.DynamicCompiler.Static;
 
 namespace MrX.DynamicCompiler.Compile;
@@ -34,13 +36,13 @@ public class Tokenizer
 
 
             if (i > 0
-                && Statics.L_Tokens.Last().Key == Statics.LabalTypes.EndOfCode
+                && Statics.L_Tokens.Last().Value == Statics.LabalTypes.EndOfCode
                 && find == Statics.LabalTypes.EndOfCode)
             {
             }
             else
             {
-                var Token = new KeyValuePair<Statics.LabalTypes, String>(find, l);
+                var Token = new KeyValue<string, Statics.LabalTypes>(l, find);
                 Statics.L_Tokens.Add(Token);
             }
         }

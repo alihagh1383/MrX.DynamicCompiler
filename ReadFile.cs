@@ -38,6 +38,16 @@ public class ReadFile
 
                         break;
                     }
+                    case '{':
+                    {
+                        add(c);
+                        break;
+                    }
+                    case '}':
+                    {
+                        add(c);
+                        break;
+                    }
                     case '(':
                     {
                         add(c);

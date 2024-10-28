@@ -7,7 +7,9 @@ using MrX.DynamicCompiler.CompilerData;
 new Configuration(args);
 new ReadFile(Statics.MainFilePath);
 new Tokenizer();
-var t= Statics.L_Tokens;
+new ChackTheTokensByGramer();
+
+var t = Statics.L_Tokens;
 Console.WriteLine(Statics.Grammar);
 Console.WriteLine(Statics.Labals);
 Console.WriteLine(Statics.L_Splits);
